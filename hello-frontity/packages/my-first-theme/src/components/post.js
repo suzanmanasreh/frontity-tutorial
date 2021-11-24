@@ -11,7 +11,7 @@ const Post = ({ state }) => {
     <div>
       <h2>{post.title.rendered}</h2>
       <p>
-        <strong>Posted: </strong>
+        <strong>Post Date: </strong>
         {formattedDate}
       </p>
       <p>
