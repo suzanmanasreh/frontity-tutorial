@@ -35,5 +35,6 @@ const PostInfo = styled.div`
   font-size: 0.8em;
   & > p {
     margin: 0;
+    line-height: 1.4;
   }
 `;
