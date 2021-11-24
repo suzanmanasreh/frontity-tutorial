@@ -5,8 +5,10 @@ import Switch from "@frontity/components/switch";
 import List from "./list";
 import Post from "./post";
 import Page from "./page";
+import Loading from "./loading";
+import Error from "./error";
 
-const Root = ({ state }) => {
+const Root = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
   return (
     <>
@@ -25,21 +27,30 @@ const Root = ({ state }) => {
       <Header isPostType={data.isPostType} isPage={data.isPage}>
         <HeaderContent>
           <h1>Frontity Workshop</h1>
-          <p>Current URL: {state.router.link}</p>
+          {state.theme.isUrlVisible ? (
+            <>
+              Current URL: {state.router.link}{" "}
+              <Button onClick={actions.theme.toggleUrl}>&#x3c; Hide URL</Button>
+            </>
+          ) : (
+            <Button onClick={actions.theme.toggleUrl}>Show URL &#x3e;</Button>
+          )}
           <Menu>
             <Link link="/">Home</Link>
-            <br />
             <Link link="/page/2">More posts</Link>
-            <br />
+            <Link link="/destinations">Destinations</Link>
             <Link link="/about-us">About Us</Link>
           </Menu>
         </HeaderContent>
       </Header>
       <Main>
         <Switch>
+          <Loading when={data.isFetching} />
           <List when={data.isArchive} />
           <Post when={data.isPost} />
           <Page when={data.isPage} />
+          <Page when={data.isDestinations} />
+          <Error when={data.isError} />
         </Switch>
       </Main>
     </>
@@ -101,5 +112,16 @@ const Menu = styled.nav`
     margin-right: 1em;
     color: steelblue;
     text-decoration: none;
+  }
+`;
+
+const Button = styled.button`
+  background: #f8f8ff;
+  border: none;
+  color: #aaa;
+  padding: 2px 4px;
+  :hover {
+    cursor: pointer;
+    color: #888;
   }
 `;
