@@ -19,6 +19,9 @@ const List = ({ state }) => {
     </Items>
   );
 };
+
+export default connect(List);
+
 const Items = styled.div`
   & > a {
     display: block;
@@ -28,5 +31,3 @@ const Items = styled.div`
     text-decoration: none;
   }
 `;
-
-export default connect(List);
